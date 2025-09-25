@@ -89,6 +89,6 @@ long parse_int(const string& number) {
   return result;
 }
 
-void test() {
+void testParseHyphenated() {
   std::cout << parse_hyphenated("forty-six") << std::endl;
 }
