@@ -4,71 +4,57 @@
 
 // https://www.codewars.com/kata/55e7280b40e1c4a06d0000aa/train/cpp
 
-
-
-
-//BestTravel.h
-
-#include <iostream>
+#include <algorithm>
+#include <set>
+#include <stdexcept>
 #include <vector>
 
 using std::vector;
-using uint = std::size_t;
+using std::multiset;
+using std::set;
 
 class BestTravel {
   public:
     static int chooseBestSum(int t, int k, const vector<int>& ls);
-    static void testGetSubsets();
-    static void printToConsole(const vector<vector<int>>& vecvec);
-    static vector<vector<int>> getSubsets(int subset_size, const vector<int>& set);
+    static set<int> getSubsetSums(int subset_size, const multiset<int>& input_set);
 };
 
-
-
-
-//BestTravel.cpp
-
-vector<vector<int>>
-BestTravel::getSubsets(const int subset_size, const vector<int>& set) {
-  //catch invalid size input
-  if (subset_size <= 0 || subset_size > set.size()) {
-    throw std::invalid_argument("Invalid subset size");
+set<int> BestTravel::getSubsetSums(int subset_size, const multiset<int>& input_set) {
+  //catch invalid inputs
+  if (subset_size <= 0) {
+    throw std::runtime_error("INVALID INPUT");
   }
 
-  //base case for size 1
-  if (subset_size == 1) {
-    vector<vector<int>> result;
-    for (int i: set) {
-      result.push_back({i});
+  if (subset_size > input_set.size()) return set<int>{};
+
+  //base case: subset_size 1
+  if (subset_size == 1) return set<int> {input_set.begin(), input_set.end()};
+
+  //general case: subset_size > 1
+  multiset<int> working_copy = input_set;
+  set<int> result{};
+  for (int i: input_set) {
+    working_copy.erase(working_copy.find(i));
+    set<int> subset_sums = getSubsetSums(subset_size-1, working_copy);
+    for (const int element: subset_sums) {
+      result.insert(element + i);
     }
-    return result;
   }
-
-  //TODO: implement general case for size > 1
+  return result;
 }
 
 int BestTravel::chooseBestSum(const int t, const int k, const vector<int>& ls) {
-  static uint size = ls.size();
-  if (k > size) return -1;
-  //TODO: implement this
-}
+  if (k > ls.size()) return -1;
+  if (ls.empty()) return -1;
+  if (k <= 0) return -1;
 
-void BestTravel::printToConsole(const vector<vector<int>>& vecvec) {
-  //TODO: output looks atrocious, should be improved
-  std::cout << "Vector[\n";
-  for (auto& vec: vecvec) {
-    std::cout << "Vector(";
-    for (const auto i: vec) {
-      std::cout << i << ", ";
-    }
-    std::cout << ")\n";
+  int result = -1;
+  multiset<int> mset(ls.begin(), ls.end());
+  auto subset_sums = getSubsetSums(k, mset);
+
+  for (const int element: subset_sums) {
+    if (element > result &&  element <= t) result = element;
   }
-  std::cout << "]\n";
+
+  return result;
 }
-
-void BestTravel::testGetSubsets() {
-  printToConsole(getSubsets(1, {3, 7, 2, 5}));
-}
-
-
-
