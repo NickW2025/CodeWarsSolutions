@@ -33,7 +33,7 @@ vector<string> constructOutput(const char c_in) {
   return v_out;
 }
 
-vector<string> addDigitToOutput(const vector<string>& v_in, char c_in) {
+vector<string> addDigitToOutput(const vector<string>& v_in, const char c_in) {
   vector<string> v_out{};
   for (const auto& str_in: v_in) {
     for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
@@ -45,7 +45,7 @@ vector<string> addDigitToOutput(const vector<string>& v_in, char c_in) {
   return v_out;
 }
 
-vector<string> addDigit(const vector<string>& v_in, const char c_in){
+vector<string> processDigit(const vector<string>& v_in, const char c_in){
   if (v_in.empty()) return constructOutput(c_in);
   else return addDigitToOutput(v_in, c_in);
 }
@@ -53,7 +53,7 @@ vector<string> addDigit(const vector<string>& v_in, const char c_in){
 vector<string> get_pins(const string& observed) {
   vector<string> possible_pins{};
   for (const char c : observed) {
-    possible_pins = addDigit(possible_pins, c);
+    possible_pins = processDigit(possible_pins, c);
   }
   return possible_pins;
 }
