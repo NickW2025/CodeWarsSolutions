@@ -6,38 +6,41 @@
 
 #include <iostream>
 #include <map>
-#include <set>
 #include <stdexcept>
 
 using std::map;
-using std::set;
-using std::multiset;
+using std::pair;
 using ull = unsigned long long;
 using uint = unsigned int;
 
-set<multiset<uint>> getPartitions(const uint number) {
-  static map<uint, set<multiset<uint>>> cache{};
+//
+// getPartitionNumber(n,m) implements this recursive formula:
+// p(n, m) = p(n-m, m) + p(n, m-1)
+// which gives the number of partitions of n
+// into summands that are less than or equal to m.
+//
+ull getPartitionNumber(int n, int m) {
+  static map<pair<int, int>, ull> cache{};
+  // base cases
+  if (n < 1) return 0;
+  if (m < 1) return 0;
+  if (m == 1) return 1;
+  if (n == 1) return 1;
 
-  // base cases - immediate result
-  if (number == 0) return {};
-  if (number == 1) return {{1}};
-
-  // check cache to avoid unnecessary repetition
   try {
-    return cache.at(number);
-  } catch (const std::out_of_range& e) {}
+    // cache lookup to avoid unnecessary computation
+    return cache.at(std::make_pair(n, m));
+  }
+  catch (std::out_of_range& e) {
+    // in case of cache miss, recursively calculate the target number
+    ull result = getPartitionNumber(n-m, m) + getPartitionNumber(n, m-1);
 
-  // general case - recursion
-  //TODO: implement this
-  set<multiset<uint>> final_result{};
-  set<multiset<uint>> recursion_result = getPartitions(number - 1);
-
-  // add computed result to cache for future reuse
-  cache.insert({number, final_result});
-  std::cout << "finished computation for " << number << std::endl;
-  return final_result;
+    // before returning, cache the calculated number for future reuse
+    cache.insert({std::make_pair(n, m), result});
+    return result;
+  }
 }
 
 ull exp_sum(const uint n) {
-  return getPartitions(n).size();
+  return getPartitionNumber(static_cast<int>(n+1), static_cast<int>(n+1));
 }
