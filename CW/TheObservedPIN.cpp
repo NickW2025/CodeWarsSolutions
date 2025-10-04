@@ -10,7 +10,7 @@
 using std::string;
 using std::vector;
 
-const vector<vector<char>> adjacent_keys{
+const vector<vector<char>> ADJACENT_KEYS{
   {'0', '8'},
   {'1', '2', '4'},
   {'1', '2', '3', '5'},
@@ -26,7 +26,7 @@ const vector<vector<char>> adjacent_keys{
 vector<string> addDigit(const vector<string>& v_in, const char c_in) {
   vector<string> v_out{};
   if (v_in.empty()) {
-    for (const char possible: adjacent_keys[c_in-'0']) {
+    for (const char possible: ADJACENT_KEYS[c_in-'0']) {
       string str_working{};
       str_working += possible;
       v_out.push_back(str_working);
@@ -34,7 +34,7 @@ vector<string> addDigit(const vector<string>& v_in, const char c_in) {
   }
   else {
     for (const auto& str_in: v_in) {
-      for (const char possible: adjacent_keys[c_in-'0']) {
+      for (const char possible: ADJACENT_KEYS[c_in-'0']) {
         string str_working = str_in;
         str_working += possible;
         v_out.push_back(str_working);
