@@ -23,18 +23,18 @@ const vector<vector<char>> ADJACENT_KEYS{
   {'6', '8', '9'}
 };
 
-vector<string> addDigit(const vector<string>& v_in, const char c_in) {
+vector<string> constructOutput(const char c_in) {
   vector<string> v_out{};
-
-  if (v_in.empty()) {
-    for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
-      string str{};
-      str += adj_key;
-      v_out.push_back(str);
-    }
-    return v_out;
+  for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
+    string str{};
+    str += adj_key;
+    v_out.push_back(str);
   }
+  return v_out;
+}
 
+vector<string> addDigitToOutput(const vector<string>& v_in, char c_in) {
+  vector<string> v_out{};
   for (const auto& str_in: v_in) {
     for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
       string str = str_in;
@@ -43,6 +43,11 @@ vector<string> addDigit(const vector<string>& v_in, const char c_in) {
     }
   }
   return v_out;
+}
+
+vector<string> addDigit(const vector<string>& v_in, const char c_in){
+  if (v_in.empty()) return constructOutput(c_in);
+  else return addDigitToOutput(v_in, c_in);
 }
 
 vector<string> get_pins(const string& observed) {
