@@ -10,7 +10,7 @@
 using std::string;
 using std::vector;
 
-const vector<vector<char>> ADJACENT_KEYS{
+const vector<vector<char>> ADJACENT_KEYS {
   {'0', '8'},
   {'1', '2', '4'},
   {'1', '2', '3', '5'},
