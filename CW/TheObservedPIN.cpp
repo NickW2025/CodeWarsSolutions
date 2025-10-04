@@ -26,18 +26,18 @@ const vector<vector<char>> ADJACENT_KEYS{
 vector<string> addDigit(const vector<string>& v_in, const char c_in) {
   vector<string> v_out{};
   if (v_in.empty()) {
-    for (const char possible: ADJACENT_KEYS[c_in-'0']) {
-      string str_working{};
-      str_working += possible;
-      v_out.push_back(str_working);
+    for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
+      string str{};
+      str += adj_key;
+      v_out.push_back(str);
     }
   }
   else {
     for (const auto& str_in: v_in) {
-      for (const char possible: ADJACENT_KEYS[c_in-'0']) {
-        string str_working = str_in;
-        str_working += possible;
-        v_out.push_back(str_working);
+      for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
+        string str = str_in;
+        str += adj_key;
+        v_out.push_back(str);
       }
     }
   }
