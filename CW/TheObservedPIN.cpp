@@ -27,7 +27,7 @@ vector<string> constructOutput(const char c_in) {
   vector<string> v_out{};
   for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
     string str{};
-    str += adj_key;
+    str.append(1, adj_key);
     v_out.push_back(str);
   }
   return v_out;
@@ -38,7 +38,7 @@ vector<string> addCharToOutput(const vector<string>& v_in, const char c_in) {
   for (const auto& str_in: v_in) {
     for (const char adj_key: ADJACENT_KEYS[c_in-'0']) {
       string str = str_in;
-      str += adj_key;
+      str.append(1, adj_key);
       v_out.push_back(str);
     }
   }
