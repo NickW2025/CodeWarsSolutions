@@ -4,6 +4,14 @@
 
 // https://www.codewars.com/kata/52f677797c461daaf7000740/train/cpp
 
+/*
+ *
+ * This could have been solved much more elegantly by simply computing
+ * the greatest common divisor of the numbers in the array, but i didn't
+ * recognize it until i saw other peoples solutions.
+ *
+ */
+
 #include <algorithm>
 #include <vector>
 
