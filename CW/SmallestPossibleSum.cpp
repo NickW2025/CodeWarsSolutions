@@ -30,7 +30,7 @@ ull solution(const vector<ull>& arr) {
     std::unique(working_vector.begin(), working_vector.end()));
 
   while (working_vector.size() > 1) {
-    size_t max = working_vector.size()-1;
+    const size_t max = working_vector.size()-1;
     const ull temp = working_vector[max] % working_vector[max-1];
     working_vector[max] = ((temp > 0) ? temp : working_vector[max-1]);
     bubbleToPosition(working_vector, max);
