@@ -5,22 +5,24 @@
 // https://www.codewars.com/kata/596d34df24a04ee1e3000a25/train/cpp
 
 #include <iostream>
-using uint = unsigned int;;
+using ll = long long;
 
-long long sumOnesInBinaryNumsUpTo(uint num);
-uint logBaseTwo(uint num);
+ll sumOnesInBinaryNumsUpTo(int num);
+int logBaseTwo(int num);
 
-long long countOnes ( uint left, uint right ) {
+ll countOnes (const int left, const int right) {
   return sumOnesInBinaryNumsUpTo(right) - sumOnesInBinaryNumsUpTo(left);
 }
 
-long long sumOnesInBinaryNumsUpTo(uint num) {
+ll sumOnesInBinaryNumsUpTo(int num) {
   //TODO: implement this
+  std::cout << "log2 of " << num << " is " << logBaseTwo(num) << "." << std::endl;
   return -1;
 }
 
-uint logBaseTwo(uint num) {
+int logBaseTwo(int num) {
   if (num == 0) throw std::invalid_argument("Logarithm of 0 is undefined.");
+  if (num < 0) num = -num;
   if (num == 1) return 0;
   return logBaseTwo(num / 2) + 1;
 }
