@@ -18,7 +18,8 @@ ull solution(const vector<ull>& arr) {
 
   vector<ull> working_vector = arr;
   std::sort(working_vector.begin(), working_vector.end());
-  working_vector = vector(working_vector.begin(), std::unique(working_vector.begin(), working_vector.end()));
+  working_vector = vector(working_vector.begin(),
+    std::unique(working_vector.begin(), working_vector.end()));
 
   while (working_vector.size() > 1) {
     size_t max = working_vector.size()-1;
