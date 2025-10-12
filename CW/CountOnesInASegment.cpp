@@ -17,21 +17,16 @@ ll countOnes (const int left, const int right) {
 }
 
 ll sumOnesInFirstBinaryNums(int num) {
-  if (num == 0) return 0;
-  if (num == 1) return 0;
+  if (num < 2) return 0;
   if (num == 2) return 1;
 
-  int log = logBaseTwo(num);
-  int pow = powTwo(log);
-  int rem = num - pow;
+  const int log = logBaseTwo(num);
+  const int remaining = num - powTwo(log);
 
-  // S(2^n) = 2*S(2^n-1) + 2^(n-1)
-
-  if (rem == 0) {
+  if (remaining == 0)
     return 2 * sumOnesInFirstBinaryNums(powTwo(log-1)) + powTwo(log-1);
-  }
-  return sumOnesInFirstBinaryNums(powTwo(log)) + sumOnesInFirstBinaryNums(rem) + rem;
-
+  else
+    return sumOnesInFirstBinaryNums(powTwo(log)) + sumOnesInFirstBinaryNums(remaining) + remaining;
 }
 
 int logBaseTwo(int num) {
