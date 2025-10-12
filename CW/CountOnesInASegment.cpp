@@ -4,19 +4,17 @@
 
 // https://www.codewars.com/kata/596d34df24a04ee1e3000a25/train/cpp
 
-#include <cmath>
-#include <iostream>
 using ll = long long;
 
-ll sumOnesInFirstBinaryNums(int num);
+ll sumOnesUpTo(int num);
 int logBaseTwo(int num);
 int powTwo(int num);
 
 ll countOnes (const int left, const int right) {
-  return sumOnesInFirstBinaryNums(right+1) - sumOnesInFirstBinaryNums(left);
+  return sumOnesUpTo(right+1) - sumOnesUpTo(left);
 }
 
-ll sumOnesInFirstBinaryNums(int num) {
+ll sumOnesUpTo(int num) {
   if (num < 2) return 0;
   if (num == 2) return 1;
 
@@ -24,13 +22,13 @@ ll sumOnesInFirstBinaryNums(int num) {
   const int remaining = num - powTwo(log);
 
   if (remaining == 0)
-    return 2 * sumOnesInFirstBinaryNums(powTwo(log-1)) + powTwo(log-1);
+    return 2 * sumOnesUpTo(powTwo(log-1)) + powTwo(log-1);
   else
-    return sumOnesInFirstBinaryNums(powTwo(log)) + sumOnesInFirstBinaryNums(remaining) + remaining;
+    return sumOnesUpTo(powTwo(log)) + sumOnesUpTo(remaining) + remaining;
 }
 
 int logBaseTwo(int num) {
-  if (num == 0) throw std::invalid_argument("Logarith,0m of 0 is undefined.");
+  if (num == 0) return -1; //logarithm of 0 is undefined
   if (num < 0) num = -num;
   if (num == 1) return 0;
   return logBaseTwo(num / 2) + 1;
